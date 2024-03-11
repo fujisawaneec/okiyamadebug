@@ -253,7 +253,7 @@ void ObjModel::LoadMaterial(const string& directoryPath, const string& filename)
 		if (key == "map_Kd")
 		{
 			line_stream >> material.textureFilename;
-			LoadTexture(directoryPath, material.textureFilename);
+			//LoadTexture(directoryPath, material.textureFilename);
 		}
 	}
 	file.close();

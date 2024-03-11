@@ -18,15 +18,15 @@
 #include "GameScene.h"
 
 using namespace SKNEngine;
-template <class T>
-inline void complete_type_safe_delete(T * &p) {
-	//  不完全な型のポインタをdeleteしようとした時にコンパイルエラーにする
-	typedef char type_must_be_complete[sizeof(T) ? 1 : -1];
-	(void)sizeof(type_must_be_complete);
-
-	delete p;
-	p = nullptr;
-}
+//template <class T>
+//inline void complete_type_safe_delete(T * &p) {
+//	//  不完全な型のポインタをdeleteしようとした時にコンパイルエラーにする
+//	typedef char type_must_be_complete[sizeof(T) ? 1 : -1];
+//	(void)sizeof(type_must_be_complete);
+//
+//	delete p;
+//	p = nullptr;
+//}
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
@@ -51,64 +51,64 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ImGuiManager::Initialize(window->GetHwnd(), dxCommon);
 
 	//FbxLoader::GetInstance()->Initialize(dxCommon->GetDevice());
-	Input::Init(window->GetHInstance(), window->GetHwnd());
+	//Input::Init(window->GetHInstance(), window->GetHwnd());
 
 	OBJ3D::StaticInitialize(dxCommon->GetDevice());
 	/*Object3D::SetDevice(dxCommon->GetDevice());
-	Object3D::CreateGraphicsPipeline();*/
-	Draw3DLine::SetDevice(dxCommon->GetDevice(),dxCommon->GetCommandList());
-	ParticleManager::StaticInitialize(dxCommon->GetDevice());
-	LightGroup::StaticInitialize(dxCommon->GetDevice());
-	PostEffect::SetDXCommon(dxCommon);
-	PostEffect::CreateGraphicsPipeline();
+	//Object3D::CreateGraphicsPipeline();*/
+	//Draw3DLine::SetDevice(dxCommon->GetDevice(),dxCommon->GetCommandList());
+	//ParticleManager::StaticInitialize(dxCommon->GetDevice());
+	//LightGroup::StaticInitialize(dxCommon->GetDevice());
+	//PostEffect::SetDXCommon(dxCommon);
+	//PostEffect::CreateGraphicsPipeline();
 
 	
 
-	PostEffect* postEffect = nullptr;
-	postEffect = new PostEffect();
-	postEffect->Initialize();
+	//PostEffect* postEffect = nullptr;
+	//postEffect = new PostEffect();
+	//postEffect->Initialize();
 
-	unique_ptr<FPS>fps;
-	fps = std::make_unique<FPS>();
-	fps->Initialize();
+	//unique_ptr<FPS>fps;
+	//fps = std::make_unique<FPS>();
+	//fps->Initialize();
 
 	gameScene = new GameScene();
 	gameScene->Init(dxCommon);
 
 	
-	while (true)
-	{
-		if (window->ProcessMessage())
-		{
-			break;
-		}
-		ImGuiManager::Begin();
-		Input::InputUpdate();
+	//while (true)
+	//{
+	//	if (window->ProcessMessage())
+	//	{
+	//		break;
+	//	}
+	//	ImGuiManager::Begin();
+	//	Input::InputUpdate();
 
-		gameScene->Update();
+	//	gameScene->Update();
 
 
-		postEffect->PreDrawScene(dxCommon->GetCommandList());
-		gameScene->Draw(dxCommon);
-		postEffect->PostDrawScene(dxCommon->GetCommandList());
-		
-		dxCommon->PreDraw();
-		postEffect->Draw(dxCommon->GetCommandList());
-		//gameScene->Draw(dxCommon);
+	//	postEffect->PreDrawScene(dxCommon->GetCommandList());
+	//	gameScene->Draw(dxCommon);
+	//	postEffect->PostDrawScene(dxCommon->GetCommandList());
+	//	
+	//	dxCommon->PreDraw();
+	//	postEffect->Draw(dxCommon->GetCommandList());
+	//	//gameScene->Draw(dxCommon);
 
-		ImGuiManager::Draw();
-		dxCommon->PostDraw();
+	//	ImGuiManager::Draw();
+	//	dxCommon->PostDraw();
 
-		fps->Update();
+	//	fps->Update();
 
-	}
+	//}
 
 	
-	gameScene->Finalize();
+	//gameScene->Finalize();
 	//FbxLoader::GetInstance()->Finalize();
-	complete_type_safe_delete(gameScene);
-	complete_type_safe_delete(postEffect);
-	ImGuiManager::Finalize();
-	complete_type_safe_delete(dxCommon);
-	window->TerminateGameWindow();
+	//complete_type_safe_delete(gameScene);
+	//complete_type_safe_delete(postEffect);
+	//ImGuiManager::Finalize();
+	//complete_type_safe_delete(dxCommon);
+	//window->TerminateGameWindow();
 }

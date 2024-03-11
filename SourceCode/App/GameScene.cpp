@@ -10,98 +10,98 @@ using namespace SKNEngine;
 
 void GameScene::Init(DirectXCommon* dxcommon)
 {
-	spritecommon = new SpriteCommon();
-	spritecommon->Initialize(dxcommon);
+	//spritecommon = new SpriteCommon();
+	//spritecommon->Initialize(dxcommon);
 
 	texturemanager = TextureManager::GetInstance();
 	texturemanager->StaticInitialize(dxcommon);
-	light = LightGroup::Create();
-	OBJ3D::SetLight(light);
-	
-	camera.Initialize(dxcommon->GetDevice());
-	//Object3D::SetCamera(camera.getView());
-	Draw3DLine::SetCamera(&camera);
+	//light = LightGroup::Create();
+	//OBJ3D::SetLight(light);
+	//
+	//camera.Initialize(dxcommon->GetDevice());
+	////Object3D::SetCamera(camera.getView());
+	//Draw3DLine::SetCamera(&camera);
 
-	StuructTransform::SetStruct(&camera, spritecommon, texturemanager);
+	//StuructTransform::SetStruct(&camera, spritecommon, texturemanager);
 
 	//テクスチャ読み込み
 	skydome_model = ObjModel::LoadFromOBJ("skydome");
 	DeathParticle::SetModel(ObjModel::LoadFromOBJ("boxobj"));
 	
-	preTitleHandle = texturemanager->LoadTexture("Resources/title.png");
-	preTitleHandle2 = texturemanager->LoadTexture("Resources/title2.png");
-	SceneChaHandle = texturemanager->LoadTexture("Resources/scene.png");
-	clearScHandle = texturemanager->LoadTexture("Resources/clear.png");
-	GameOverScHandle = texturemanager->LoadTexture("Resources/GameOver.png");
-	
+	//preTitleHandle = texturemanager->LoadTexture("Resources/title.png");
+	//preTitleHandle2 = texturemanager->LoadTexture("Resources/title2.png");
+	//SceneChaHandle = texturemanager->LoadTexture("Resources/scene.png");
+	//clearScHandle = texturemanager->LoadTexture("Resources/clear.png");
+	//GameOverScHandle = texturemanager->LoadTexture("Resources/GameOver.png");
+	//
 
-	//3Dモデル周り
+	////3Dモデル周り
 
-	
-	skydome = OBJ3D::Create();
-	skydome->SetModel(skydome_model);
+	//
+	//skydome = OBJ3D::Create();
+	//skydome->SetModel(skydome_model);
 
-	field.Init(&camera);
+	//field.Init(&camera);
 
-	boss.Init();
-	player.Init();
+	//boss.Init();
+	//player.Init();
 
-	camera.setTarget(&player.prePlayer);
-	//camera.setTarget(&player.St->Wt);
+	//camera.setTarget(&player.prePlayer);
+	////camera.setTarget(&player.St->Wt);
 
-	boss.SetPlayer(&player);
-	player.SetEnemy(&boss.St->Wt);
-
-
-	//スプライト周り
-
-	preTitle = std::make_unique<Sprite2D>();
-	preTitle->Initialize(spritecommon, preTitleHandle);
-	preTitle->Wt.translation_ = { DxWindow::window_width / 2.0f,DxWindow::window_height / 4.5f ,0.0f };
-
-	preTitle2 = std::make_unique<Sprite2D>();
-	preTitle2->Initialize(spritecommon, preTitleHandle2);
-	preTitle2->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) + 60.0f ,0.0f };
-
-	SceneCha = std::make_unique<Sprite2D>();
-	SceneCha->Initialize(spritecommon, SceneChaHandle);
-	SceneCha->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) ,0.0f };
-
-	clearSc = std::make_unique<Sprite2D>();
-	clearSc->Initialize(spritecommon, clearScHandle);
-	clearSc->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) ,0.0f };
+	//boss.SetPlayer(&player);
+	//player.SetEnemy(&boss.St->Wt);
 
 
-	//パーティクル周り
+	////スプライト周り
 
-	float ambientColor[3] = { 1,1,1 };
+	//preTitle = std::make_unique<Sprite2D>();
+	//preTitle->Initialize(spritecommon, preTitleHandle);
+	//preTitle->Wt.translation_ = { DxWindow::window_width / 2.0f,DxWindow::window_height / 4.5f ,0.0f };
 
-	float lightDir0[3] = { 0,0,-1 };
-	float lightColor0[3] = { 1,0,0 };
+	//preTitle2 = std::make_unique<Sprite2D>();
+	//preTitle2->Initialize(spritecommon, preTitleHandle2);
+	//preTitle2->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) + 60.0f ,0.0f };
 
-	float litX = 0.0f;
-	float litY = 0.0f;
-	float litZ = 0.0f;
+	//SceneCha = std::make_unique<Sprite2D>();
+	//SceneCha->Initialize(spritecommon, SceneChaHandle);
+	//SceneCha->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) ,0.0f };
 
-	float pointLightPos[3] = { litX,litY,litZ };
-	float pointLightColor[3] = { 1,1,1 };
-
-	float pointLightAtten[3] = { 0.3f,0.1f,0.1f };
-
-	light->SetDirLightActive(0, true);
-	light->SetPointLightActive(0, false);
+	//clearSc = std::make_unique<Sprite2D>();
+	//clearSc->Initialize(spritecommon, clearScHandle);
+	//clearSc->Wt.translation_ = { DxWindow::window_width / 2.0f,(DxWindow::window_height / 2.0f) ,0.0f };
 
 
-	light->SetPointLightPos(0, Vector3(pointLightPos));
-	light->SetPointLightColor(0, Vector3(pointLightColor));
-	light->SetPointLightAtten(0, Vector3(pointLightAtten));
+	////パーティクル周り
 
-	//float a = 0.2f;
+	//float ambientColor[3] = { 1,1,1 };
 
-	//field->Wt->translation_.y = -5.0f;
-	player.Reset();
-	boss.Reset();
-	camera.Reset();
+	//float lightDir0[3] = { 0,0,-1 };
+	//float lightColor0[3] = { 1,0,0 };
+
+	//float litX = 0.0f;
+	//float litY = 0.0f;
+	//float litZ = 0.0f;
+
+	//float pointLightPos[3] = { litX,litY,litZ };
+	//float pointLightColor[3] = { 1,1,1 };
+
+	//float pointLightAtten[3] = { 0.3f,0.1f,0.1f };
+
+	//light->SetDirLightActive(0, true);
+	//light->SetPointLightActive(0, false);
+
+
+	//light->SetPointLightPos(0, Vector3(pointLightPos));
+	//light->SetPointLightColor(0, Vector3(pointLightColor));
+	//light->SetPointLightAtten(0, Vector3(pointLightAtten));
+
+	////float a = 0.2f;
+
+	////field->Wt->translation_.y = -5.0f;
+	//player.Reset();
+	//boss.Reset();
+	//camera.Reset();
 }
 
 void GameScene::Update()
